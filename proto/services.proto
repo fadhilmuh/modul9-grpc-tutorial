@@ -1,6 +1,5 @@
 syntax = "proto3"
 
-
 package = services
 
 
@@ -10,12 +9,12 @@ service PaymentService{
 
 
 service TransactionService{
-    rpc GetTransactionHistory(TransactionRequest) returns (TransactionResponse);
+    rpc GetTransactionHistory(TransactionRequest) returns (stream TransactionResponse);
 }
 
 
 service ChatService{
-    rpc Chat(stream ChatRequest) returns (stream ChatMessage);
+    rpc Chat(stream ChatMessage) returns (stream ChatMessage);
 }
 
 
@@ -24,9 +23,8 @@ message PaymentRequest{
     double amount = 2;
 }
 
-
 message PaymentResponse{
-    boolean success = 1;
+    bool success = 1;
 }
 
 
@@ -34,14 +32,12 @@ message TransactionRequest{
     string user_id = 1;
 }
 
-
 message TransactionResponse{
     string transaction_id = 1;
     string status = 2;
     double amount =3;
     string timestamp = 4;
 }
-
 
 message ChatMessage{
     string user_id = 1;
